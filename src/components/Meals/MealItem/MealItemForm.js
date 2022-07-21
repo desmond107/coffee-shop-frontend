@@ -61,7 +61,7 @@ const MealItemForm = (props) => {
         </Button>
       </form>
       <Button className={"submit"} type="button" onClick={submitHandler}>
-        Add to Cart
+        Add a coffee
       </Button>
     </React.Fragment>
   );

@@ -20,7 +20,7 @@
 .button:hover,
 .button:active {
   background-color: #e03e364b;
-  border:.8px solid #e03e36;
+  border:.8px solid orange;
 }
 
 .button span{
@@ -35,7 +35,7 @@
 }
 
 .badge {
-  background-color: #E03E36;
+  background-color: orange;
   padding: 0.25rem 1rem;
   border-radius: 25px;
   margin-left: 1rem;
@@ -44,7 +44,7 @@
 
 .button:hover .badge,
 .button:active .badge {
-  background-color: #fa1e13;
+  background-color: orange;
 }
 
 .bump {

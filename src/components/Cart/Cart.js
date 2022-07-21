@@ -9,7 +9,7 @@ import CartContext from "../../store/cart-context";
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
 
-  const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
+  const totalAmount = `KSH${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
 
   const cartItemRemoveHandler = (id) => {
@@ -19,6 +19,10 @@ const Cart = (props) => {
   const cartItemAddHandler = (item) => {
     cartCtx.addItem(item);
   };
+
+  const handleClick = () =>{
+    console.log ('SUCCESSFULY ORDERED')
+  }
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -45,7 +49,8 @@ const Cart = (props) => {
         <Button className="cart-btn-close" onClick={props.onHideCart}>
           Close
         </Button>
-        {hasItems && <Button className="cart-btn">Order</Button>}
+
+        {hasItems && <Button className="cart-btn" onClick={handleClick}>Order</Button>}
       </div>
     </Modal>
   );

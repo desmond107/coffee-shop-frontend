@@ -3,14 +3,12 @@ import classes from "./MealsBanner.module.css";
 const MealsBanner = () => {
   return (
     <section className={classes.summary}>
-      <h2>Delicious & Homemade Foods</h2>
+      <h2>Kahawa kama dawa</h2>
       <p>
-        Choose your favorite meal from our broad selection of available meals
-        and enjoy a delicious lunch or dinner at home.
+        Order your best coffee from coffee-jive, for a refined experience.
       </p>
       <p>
-        All our meals are cooked with high-quality ingredients, just-in-time and
-        of course by experienced chefs!
+        Have the best coffee in the house, from the best baristers in  Nairobi!
       </p>
     </section>
   );
