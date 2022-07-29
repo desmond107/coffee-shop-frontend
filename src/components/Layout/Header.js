@@ -9,7 +9,18 @@ const Header = (props) => {
     <Fragment>
       <header className={classes.header}>
         <h1>Coffee-Jive</h1>
-        <HeaderCartButton onClick={props.onShowCart}/>
+        <ul
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            listStyle: "none",
+          }}
+        >
+          <li className="link">Add Coffee</li>
+          <li className="link">Login</li>
+          <li className="link">Signup</li>
+        </ul>
+        <HeaderCartButton onClick={props.onShowCart} />
       </header>
       <div className={classes.mainImage}>
         <img src={mealsBanner} alt="Order your hot coffee" />

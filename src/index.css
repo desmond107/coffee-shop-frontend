@@ -13,4 +13,11 @@ body {
   margin: 0 auto;
   background-color: #ffffff;
 }
-
+.link{
+  padding: 10px;
+  background-color: orange;
+  margin: 10px;
+  color: black;
+  border-radius: 10px;
+  cursor: pointer;
+}
