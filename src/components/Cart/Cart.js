@@ -20,8 +20,12 @@ const Cart = (props) => {
     cartCtx.addItem(item);
   };
 
-  const handleClick = () =>{
-    console.log ('SUCCESSFULY ORDERED')
+  const handleClick = () => {
+    alert(`Your order was successful, pay: Ksh. ${cartCtx.totalAmount}`);
+    props.onHideCart();
+    for (let item = 0; item < cartCtx.items.length; item++) {
+      cartItemRemoveHandler(cartCtx.items[item]["id"]);
+    }
   }
 
   const cartItems = (
@@ -50,7 +54,14 @@ const Cart = (props) => {
           Close
         </Button>
 
-        {hasItems && <Button className="cart-btn" onClick={handleClick}>Order</Button>}
+        {hasItems && (
+          <Button
+            className="cart-btn"
+            onClick={handleClick}
+          >
+            Order
+          </Button>
+        )}
       </div>
     </Modal>
   );
