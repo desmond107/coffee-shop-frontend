@@ -20,9 +20,24 @@ export default function Login(props) {
       alert("Please fill in all fields");
       return;
     }
-    localStorage.setItem("user", JSON.stringify(loginData))
-    await props.setUser(JSON.parse(localStorage.getItem("user")));
-    props.onClick();
+    const response = await fetch("http://127.0.0.1:9292/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+      body: JSON.stringify(
+        loginData
+      ),
+    });
+    const data = await response.json()
+    if (data) {
+      if (data.message) return alert(data.message)
+      localStorage.setItem("user", JSON.stringify(data.user));
+      await props.setUser(JSON.parse(localStorage.getItem("user")));
+      props.onClick();
+    } else {
+      alert("Check you internet connection.")
+    }
   }
   return (
     <Modal>
