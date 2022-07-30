@@ -51,7 +51,6 @@ function App() {
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
-    console.log(user)
   }, []);
 
   function logOut() {
@@ -90,7 +89,9 @@ function App() {
           addCoffee={setMeals}
         />
       )}
-      {showRegister && <Register onClick={showRegisterForm} />}
+      {showRegister && (
+        <Register onClick={showRegisterForm} setUser={setUser} />
+      )}
       {showLogin && <Login setUser={setUser} onClick={showLoginForm} />}
       {cartIsShown && <Cart onHideCart={hideCartHandler} user={user} />}
       <Header
