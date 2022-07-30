@@ -8,49 +8,26 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import AddCoffee from "./components/AddCoffee";
 
-const DUMMY_MEALS = [
-  {
-    id: "m1",
-    name: "Classic Espresso ",
-    description: "Strong...invigorating...",
-    price: 100,
-  },
-  {
-    id: "m2",
-    name: "Americano",
-    description: "Boald..strong...",
-    price: 120,
-  },
-  {
-    id: "m3",
-    name: "Machiato",
-    description: "Glossy...perfect!",
-    price: 150,
-  },
-  {
-    id: "m4",
-    name: "House coffee",
-    description: "Original..off..thecurb",
-    price: 90,
-  },
-  {
-    id: "m5",
-    name: "Mocha",
-    description: "Fine finish...",
-    price: 220,
-  },
-];
-
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false)
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showCoffee, setShowCoffee] = useState(false);
-  const [meals, setMeals] = useState(DUMMY_MEALS);
+  const [meals, setMeals] = useState([]);
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")) || null)
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
+
+  async function getCoffees() {
+    const response = await fetch("http://127.0.0.1:9292/coffees")
+    const data = await response.json()
+    setMeals(data)
+  }
+
+  useEffect(() => {
+    getCoffees()
   }, []);
 
   function logOut() {
