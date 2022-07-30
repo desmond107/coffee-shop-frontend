@@ -7,12 +7,14 @@ import CartProvider from "./store/CartProvider";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import AddCoffee from "./components/AddCoffee";
+import Account from "./components/Account";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false)
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showCoffee, setShowCoffee] = useState(false);
+  const [showAccount, setAccount] = useState(false);
   const [meals, setMeals] = useState([]);
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")) || null)
 
@@ -55,6 +57,9 @@ function App() {
   const showCoffeeForm = () => {
     setShowCoffee((showCoffee) => !showCoffee);
   };
+  function showAccountPage() {
+    setAccount(showAccount => !showAccount)
+  }
 
 
   return (
@@ -69,6 +74,7 @@ function App() {
       {showRegister && (
         <Register onClick={showRegisterForm} setUser={setUser} />
       )}
+      {showAccount && <Account user={user} onClick={showAccountPage} />}
       {showLogin && <Login setUser={setUser} onClick={showLoginForm} />}
       {cartIsShown && <Cart onHideCart={hideCartHandler} user={user} />}
       <Header
@@ -76,6 +82,7 @@ function App() {
         toggleForm={showLoginForm}
         toggleRegisterForm={showRegisterForm}
         toggleCoffeeForm={showCoffeeForm}
+        toggleAccount={showAccountPage}
         user={user}
         onLogOut={logOut}
       />

@@ -17,9 +17,14 @@ const Header = (props) => {
           }}
         >
           {props.user ? (
-            <li className="link" onClick={props.toggleCoffeeForm}>
-              Add Coffee
-            </li>
+            <>
+              <li className="link" onClick={props.toggleCoffeeForm}>
+                Add Coffee
+              </li>
+              <li className="link" onClick={props.toggleAccount}>
+                Account
+              </li>
+            </>
           ) : null}
 
           {!props.user ? (
@@ -32,7 +37,9 @@ const Header = (props) => {
               </li>
             </>
           ) : (
-            <li className="link" onClick={props.onLogOut}>Log Out</li>
+            <li className="link" onClick={props.onLogOut}>
+              Log Out
+            </li>
           )}
         </ul>
         <HeaderCartButton onClick={props.onShowCart} />
