@@ -20,18 +20,39 @@ const Cart = (props) => {
     cartCtx.addItem(item);
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!props.user) {
       alert("Please login to order");
       props.onHideCart();
-      return
+      return;
     }
-    alert(`Your order was successful, pay: Ksh. ${cartCtx.totalAmount}`);
+    const user_id = props.user.id;
+    function itemName() {
+      const order = cartCtx.items.map((item) => item.name);
+      return order;
+    }
+    const response = await fetch("http://127.0.0.1:9292/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+      body: JSON.stringify({
+        amount: cartCtx.totalAmount,
+        user_id: user_id,
+        order: itemName(),
+      }),
+    });
+    const data = await response.json();
+    if (data) {
+      if (data.message) return alert(data.message)
+      alert(`Your order was successful, pay: Ksh. ${cartCtx.totalAmount}`);
+      for (let item = 0; item < cartCtx.items.length; item++) {
+        cartItemRemoveHandler(cartCtx.items[item].id);
+      }
+      props.onHideCart()
+    }
     
-    for (let item = 0; item < cartCtx.items.length; item++) {
-      cartItemRemoveHandler(cartCtx.items[item]["id"]);
-    }
-  }
+  };
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -60,10 +81,7 @@ const Cart = (props) => {
         </Button>
 
         {hasItems && (
-          <Button
-            className="cart-btn"
-            onClick={handleClick}
-          >
+          <Button className="cart-btn" onClick={handleClick}>
             Order
           </Button>
         )}

@@ -1,26 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Modal from "./UI/Modal";
 import Button from "./UI/Button";
 
 export default function Account(props) {
-  const [orders, setOrders] = useState([]);
 
-//   useEffect(() => getUserOrders(), []);
-
-//   async function getUserOrders() {
-//     const user_id = props.user.id;
-//     const response = await fetch(
-//       `http://127.0.0.1:9292/users/${user_id}/orders`
-//     );
-//     const data = await response.json();
-//     if (data) {
-//       if (data.message) return alert(data.message);
-//       setOrders(data);
-//       props.onClick();
-//     } else {
-//       alert("Check you internet connection.");
-//     }
-//   }
   return (
     <Modal>
       <Button className="cart-btn-close" onClick={props.onClick}>
@@ -34,28 +17,30 @@ export default function Account(props) {
           justifyContent: "space-around",
         }}
       >
-        <form
+        <div
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <div style={{ marginTop: "20px" }}>Your Account</div>
+          <div style={{ marginTop: "2px" }}>Your Account</div>
           <div
             style={{
-              margin: "10px",
-              padding: "10px",
-              borderRadius: "10px",
+              padding: "5px",
+              borderRadius: "5px",
             }}
           >
             <h3>Email: {props.user.email}</h3>
           </div>
-        </form>
-        <div style={{ marginTop: "20px" }}>Your Orders</div>
+        </div>
+        <div style={{ marginTop: "10px" }}>Your Orders</div>
         <div>
-          {orders.map((order) => (
-            <h3>{order.amount}</h3>
+          {props.orders.map((order) => (
+            <div style={{border: "1px solid orange",padding: "10px", borderRadius: "10px"}}>
+                  <h3>Amount: {order.amount}</h3>
+                  <div>Items: {order.order.map(item => <ul><li>{item}</li></ul>)}</div>
+            </div>
           ))}
         </div>
       </div>
