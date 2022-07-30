@@ -20,23 +20,26 @@ export default function Register(props) {
       alert("Please fill in all fields");
       return;
     }
-      const response = await fetch("http://127.0.0.1:9292/register", {
+    const response = await fetch(
+      "https://coffee-api-sinatra.herokuapp.com/register",
+      {
         method: "POST",
         headers: {
           "Content-Type": "Application/json",
         },
         body: JSON.stringify(registerData),
-      });
-      const data = await response.json();
-      if (data) {
-        if (data.message) return alert(data.message);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        await props.setUser(JSON.parse(localStorage.getItem("user")));
-        props.onClick();
-      } else {
-        alert("Check you internet connection.");
       }
+    );
+    const data = await response.json();
+    if (data) {
+      if (data.message) return alert(data.message);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      await props.setUser(JSON.parse(localStorage.getItem("user")));
+      props.onClick();
+    } else {
+      alert("Check you internet connection.");
     }
+  }
   return (
     <Modal>
       <Button className="cart-btn-close" onClick={props.onClick}>

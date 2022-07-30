@@ -31,27 +31,29 @@ const Cart = (props) => {
       const order = cartCtx.items.map((item) => item.name);
       return order;
     }
-    const response = await fetch("http://127.0.0.1:9292/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "Application/json",
-      },
-      body: JSON.stringify({
-        amount: cartCtx.totalAmount,
-        user_id: user_id,
-        order: itemName(),
-      }),
-    });
+    const response = await fetch(
+      "https://coffee-api-sinatra.herokuapp.com/orders",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/json",
+        },
+        body: JSON.stringify({
+          amount: cartCtx.totalAmount,
+          user_id: user_id,
+          order: itemName(),
+        }),
+      }
+    );
     const data = await response.json();
     if (data) {
-      if (data.message) return alert(data.message)
+      if (data.message) return alert(data.message);
       alert(`Your order was successful, pay: Ksh. ${cartCtx.totalAmount}`);
       for (let item = 0; item < cartCtx.items.length; item++) {
         cartItemRemoveHandler(cartCtx.items[item].id);
       }
-      props.onHideCart()
+      props.onHideCart();
     }
-    
   };
 
   const cartItems = (

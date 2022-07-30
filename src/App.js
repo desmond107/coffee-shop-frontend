@@ -25,7 +25,7 @@ function App() {
   async function getUserOrders() {
     const user_id = user.id;
     const response = await fetch(
-      `http://127.0.0.1:9292/users/${user_id}/orders`
+      `https://coffee-api-sinatra.herokuapp.com/users/${user_id}/orders`
     );
     const data = await response.json();
     if (data) {
@@ -45,7 +45,9 @@ function App() {
   }, []);
 
   async function getCoffees() {
-    const response = await fetch("http://127.0.0.1:9292/coffees");
+    const response = await fetch(
+      "https://coffee-api-sinatra.herokuapp.com/coffees"
+    );
     const data = await response.json();
     setMeals(data);
   }

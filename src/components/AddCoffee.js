@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Modal from "./UI/Modal";
 import Button from "./UI/Button";
 
@@ -16,29 +16,31 @@ export default function AddCoffee(props) {
     });
   }
 
-    async function handleSubmit(e) {
-        e.preventDefault()
-      if (coffee.name === "" || coffee.price === "" || coffee.description === "") return alert("Please provide all fields")
-      const response = await fetch("http://127.0.0.1:9292/coffees", {
-      method: "POST",
-      headers: {
-        "Content-Type": "Application/json",
-      },
-      body: JSON.stringify(
-        coffee
-      ),
-    });
-    const data = await response.json()
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (coffee.name === "" || coffee.price === "" || coffee.description === "")
+      return alert("Please provide all fields");
+    const response = await fetch(
+      "https://coffee-api-sinatra.herokuapp.com/coffees",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/json",
+        },
+        body: JSON.stringify(coffee),
+      }
+    );
+    const data = await response.json();
     if (data) {
-      if (data.message) return alert(data.message)
+      if (data.message) return alert(data.message);
       const newCoffee = {
-            ...data,
-            price: parseInt(coffee.price),
-        }
-        props.addCoffee([...props.meals, newCoffee]);
-        props.onClick()
+        ...data,
+        price: parseInt(coffee.price),
+      };
+      props.addCoffee([...props.meals, newCoffee]);
+      props.onClick();
     } else {
-      alert("Check you internet connection.")
+      alert("Check you internet connection.");
     }
   }
   return (
