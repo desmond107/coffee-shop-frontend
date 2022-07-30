@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-import HeaderCartButton from "./HeaderCartButton"
+import HeaderCartButton from "./HeaderCartButton";
 import mealsBanner from "../../assets/cofe1.jpeg";
 import classes from "./Header.module.css";
 
@@ -16,9 +16,15 @@ const Header = (props) => {
             listStyle: "none",
           }}
         >
-          <li className="link">Add Coffee</li>
-          <li className="link">Login</li>
-          <li className="link">Signup</li>
+          <li className="link" onClick={props.toggleCoffeeForm}>
+            Add Coffee
+          </li>
+          <li className="link" onClick={props.toggleForm}>
+            Login
+          </li>
+          <li className="link" onClick={props.toggleRegisterForm}>
+            Signup
+          </li>
         </ul>
         <HeaderCartButton onClick={props.onShowCart} />
       </header>
