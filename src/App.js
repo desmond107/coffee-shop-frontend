@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
@@ -47,6 +47,17 @@ function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [showCoffee, setShowCoffee] = useState(false);
   const [meals, setMeals] = useState(DUMMY_MEALS);
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")) || null)
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+    console.log(user)
+  }, []);
+
+  function logOut() {
+    localStorage.removeItem("user")
+    setUser(null)
+  }
 
   const showCartHandler = () => {
     setCartIsShown(true);
@@ -72,15 +83,23 @@ function App() {
 
   return (
     <CartProvider>
-      {showCoffee && <AddCoffee onClick={showCoffeeForm} meals={meals} addCoffee={setMeals} />}
+      {showCoffee && (
+        <AddCoffee
+          onClick={showCoffeeForm}
+          meals={meals}
+          addCoffee={setMeals}
+        />
+      )}
       {showRegister && <Register onClick={showRegisterForm} />}
-      {showLogin && <Login onClick={showLoginForm} />}
-      {cartIsShown && <Cart onHideCart={hideCartHandler} />}
+      {showLogin && <Login setUser={setUser} onClick={showLoginForm} />}
+      {cartIsShown && <Cart onHideCart={hideCartHandler} user={user} />}
       <Header
         onShowCart={showCartHandler}
         toggleForm={showLoginForm}
         toggleRegisterForm={showRegisterForm}
         toggleCoffeeForm={showCoffeeForm}
+        user={user}
+        onLogOut={logOut}
       />
       <main>
         <Meals meals={meals} />

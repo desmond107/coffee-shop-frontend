@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "./UI/Modal";
 import Button from "./UI/Button";
 
 export default function Login(props) {
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setLoginData({
+      ...loginData,
+      [name]: value,
+    });
+  }
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (loginData.email === "" || loginData.password === "") {
+      alert("Please fill in all fields");
+      return;
+    }
+    localStorage.setItem("user", JSON.stringify(loginData))
+    await props.setUser(JSON.parse(localStorage.getItem("user")));
+    props.onClick();
+  }
   return (
     <Modal>
       <Button className="cart-btn-close" onClick={props.onClick}>
@@ -22,6 +43,7 @@ export default function Login(props) {
             flexDirection: "column",
             alignItems: "center",
           }}
+          onSubmit={handleSubmit}
         >
           <div style={{ marginTop: "20px" }}>Login</div>
           <input
@@ -30,8 +52,12 @@ export default function Login(props) {
               padding: "10px",
               borderRadius: "10px",
             }}
-            type="text"
+            type="email"
             placeholder="Email"
+            name="email"
+            value={loginData.email}
+            onChange={handleChange}
+            validate
           />
           <input
             style={{
@@ -41,6 +67,9 @@ export default function Login(props) {
             }}
             type="password"
             placeholder="********"
+            name="password"
+            value={loginData.password}
+            onChange={handleChange}
           />
           <input
             style={{

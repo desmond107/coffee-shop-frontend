@@ -16,15 +16,24 @@ const Header = (props) => {
             listStyle: "none",
           }}
         >
-          <li className="link" onClick={props.toggleCoffeeForm}>
-            Add Coffee
-          </li>
-          <li className="link" onClick={props.toggleForm}>
-            Login
-          </li>
-          <li className="link" onClick={props.toggleRegisterForm}>
-            Signup
-          </li>
+          {props.user ? (
+            <li className="link" onClick={props.toggleCoffeeForm}>
+              Add Coffee
+            </li>
+          ) : null}
+
+          {!props.user ? (
+            <>
+              <li className="link" onClick={props.toggleForm}>
+                Login
+              </li>
+              <li className="link" onClick={props.toggleRegisterForm}>
+                Signup
+              </li>
+            </>
+          ) : (
+            <li className="link" onClick={props.onLogOut}>Log Out</li>
+          )}
         </ul>
         <HeaderCartButton onClick={props.onShowCart} />
       </header>

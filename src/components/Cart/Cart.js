@@ -21,8 +21,13 @@ const Cart = (props) => {
   };
 
   const handleClick = () => {
+    if (!props.user) {
+      alert("Please login to order");
+      props.onHideCart();
+      return
+    }
     alert(`Your order was successful, pay: Ksh. ${cartCtx.totalAmount}`);
-    props.onHideCart();
+    
     for (let item = 0; item < cartCtx.items.length; item++) {
       cartItemRemoveHandler(cartCtx.items[item]["id"]);
     }
